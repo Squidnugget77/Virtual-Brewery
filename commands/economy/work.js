@@ -8,7 +8,7 @@ module.exports = {
 		const user_id = inter.member.id;
 
 		if (await economy.get(user_id) == null) {
-			inter.reply({ content: "Make a pasta empire with **/create**", ephemeral: true });
+			inter.reply({ content: "Make a brewery with **/create**", ephemeral: true });
 			return;
 		}
 

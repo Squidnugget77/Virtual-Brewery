@@ -8,10 +8,9 @@ module.exports = {
 	async execute({inter}) {
 		var user_id = inter.member.id
 		if (await economy.get(user_id) == null) {
-			const embed = new EmbedBuilder()
+			const embed = new Discord.EmbedBuilder()
 			.setColor('Red')
-			.setAuthor({ name: client.user.username, iconURL: client.user.displayAvatarURL({ size: 1024, dynamic: true }) })
-			.addFields([ { name: `❌ You do not own a brewery`, value: `Create a brewery with **/create**` } ])
+			.addFields([ { name: `❌ | You do not own a brewery`, value: `Create a brewery with **/create**` } ])
 			.setTimestamp()
 			.setFooter({ text: 'Virtual Brewery', iconURL: inter.member.avatarURL({ dynamic: true })});
 			inter.reply({ embeds: [embed]})
