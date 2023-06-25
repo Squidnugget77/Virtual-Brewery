@@ -1,4 +1,5 @@
 const { ApplicationCommandOptionType } = require("discord.js")
+const Discord = module.require("discord.js");
 
 module.exports = {
 	name: "delete",
@@ -17,13 +18,23 @@ module.exports = {
 		if (confirmation == "confirmation") {
 			try {
 				await economy.delete(inter.member.id)
-				inter.reply("Your brewery has been deleted!")
+				const embed = new Discord.EmbedBuilder()
+				.setColor('Green')
+				.addFields([ { name: `Your brewery has been deleted!`, value: `You have successfully deleted your brewery!` } ])
+				.setTimestamp()
+				.setFooter({ text: 'Virtual Brewery', iconURL: inter.member.avatarURL({ dynamic: true })});
+				inter.reply({ embeds: [embed], ephemeral: true})
 			} catch (error) {
-				await inter.reply("❌ | Error! Please contact Developers! 🧰")
+				await inter.reply({content: `❌ | Error! Please contact Developers!`, ephemeral: true})
 			}
 		}
 		else {
-			inter.reply("🍺 Make sure you type *confirmation* correctly!")
+			const embed = new Discord.EmbedBuilder()
+			.setColor('Red')
+			.addFields([ { name: `Your brewery failed to delete!`, value: `Make sure you type *confirmation* correctly!` } ])
+			.setTimestamp()
+			.setFooter({ text: 'Virtual Brewery', iconURL: inter.member.avatarURL({ dynamic: true })});
+			inter.reply({ embeds: [embed], ephemeral: true})
 		}
 	}
 }
