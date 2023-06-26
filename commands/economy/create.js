@@ -16,7 +16,11 @@ module.exports = {
 		if (await economy.get(inter.member.id) == null) {
 			try {
 				var name = inter.options.getString('name')
-				await economy.set(inter.member.id, {name: name, balance: 500, fermenters: 1, honey: 1, berries: 1, workTime: null, dailyTime: null, soldValue: 0})
+				await economy.set(inter.member.id,
+					{name: name, balance: 500,
+					tables: 0, fermenters: 0, ingredients: 0, bathrooms: 0,
+					workTime: null, dailyTime: null, soldValue: 0, hourlyIncome: 0, 
+					brewers: 0, cellarOperator: 0, breweryManager: 0, servers: 0, tourGuide: 0})
 				const embed = new Discord.EmbedBuilder()
 				.setColor('Green')
 				.addFields([ { name: `✅ You have created a brewery!`, value: `View it with **/brewery**` } ])

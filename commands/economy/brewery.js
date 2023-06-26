@@ -24,17 +24,19 @@ module.exports = {
 			try {
 				var name = await economy.get(`${user_id}.name`)
 				var balance = await economy.get(`${user_id}.balance`)
+				var hourlyIncome = await economy.get(`${user_id}.hourlyIncome`)
 				var beveragesSold = await economy.get(`${user_id}.soldValue`)
 				const embed = new Discord.EmbedBuilder()
 					.setColor('#E67F1A')
 					.addFields(
 						{ name: `Brewery Name`, value: `🔸 ${name}` },
 						{ name: `Balance`, value: `💵 $${balance.toLocaleString("en-US")}` },
-						{ name: `Income (per hour)`, value: `💸 $0 | 🍺 0 ` },
+						{ name: `Income (per hour)`, value: `💸 $${hourlyIncome.toLocaleString("en-US")} | 🍺 ${(hourlyIncome/10).toLocaleString("en-US")} ` },
 						{ name: `Beverages Sold`, value: `🍻 ${beveragesSold.toLocaleString("en-US")}`}
 						)
 					.setTimestamp()
 					.setFooter({ text: 'Virtual Brewery', iconURL: inter.member.avatarURL({ dynamic: true })});
+
 				inter.reply({ embeds: [embed]})
 			}
 			catch (error) {

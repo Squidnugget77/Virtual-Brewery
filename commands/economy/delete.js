@@ -14,8 +14,20 @@ module.exports = {
 	],
 	async execute({inter}) {
 		var confirmation = inter.options.getString('confirmation').toLowerCase()
-
-		if (confirmation == "confirmation") {
+		if (await economy.get(user_id) == null) {
+			try {
+				const embed = new Discord.EmbedBuilder()
+				.setColor('Red')
+				.addFields([ { name: `❌ | You do not own a brewery`, value: `Create a brewery with **/create**` } ])
+				.setTimestamp()
+				.setFooter({ text: 'Virtual Brewery', iconURL: inter.member.avatarURL({ dynamic: true })});
+				inter.reply({ embeds: [embed], ephemeral: true})
+			}
+			catch (error) {
+				inter.reply({content: "❌ | Error! Please contact Developers!", ephemeral: true})
+			}
+		}
+		else if (confirmation == "confirmation") {
 			try {
 				await economy.delete(inter.member.id)
 				const embed = new Discord.EmbedBuilder()

@@ -32,15 +32,24 @@ module.exports = {
 
 			const embed = new Discord.EmbedBuilder()
 			.setColor('Red')
-			.addFields([ { name: `You cannot work right now!`, value: `You must wait ${minutesLeft} more minutes to work again!` } ])
+			.addFields([ { name: `❌ | You cannot work right now!`, value: `You must wait ${minutesLeft} more minutes to work again!` } ])
 			.setTimestamp()
 			.setFooter({ text: 'Virtual Brewery', iconURL: inter.member.avatarURL({ dynamic: true })});
 			inter.reply({ embeds: [embed], ephemeral: true})
 		}
 		else {
 			var money = 5000
+			var beverages = Math.floor(money/10)
+			console.log(beverages)
 			await economy.add(`${user_id}.balance`, money);
-			inter.reply(`You sold 🍺 **1** beverage and made **$${money.toLocaleString("en-US")}**.`);
+			const embed = new Discord.EmbedBuilder()
+			.setColor('Green')
+			.addFields([ { name: `You have worked a shift at the brewery!`, value: `You earned **$${money.toLocaleString("en-US")}** from selling 🍺 ${(money/10).toLocaleString("en-US")} beverages!` } ])
+			.setTimestamp()
+			.setFooter({ text: 'Virtual Brewery', iconURL: inter.member.avatarURL({ dynamic: true })});
+			inter.reply({ embeds: [embed]})
+
+			await economy.add(`${user_id}.soldValue`,beverages)
 
 			// Set the cooldown for the user
 			const cooldownExpirationTime = Date.now() + cooldownDuration;

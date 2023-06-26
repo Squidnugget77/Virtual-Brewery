@@ -32,7 +32,19 @@ readdirSync('./commands/').forEach(dirs => {
   };
 });
 
+async function giveHourlyIncomeToAllUsers() {
+	const allData = await economy.all()
+	for (const key in allData) {
+		const data = allData[key];
+		var hourlyIncome = await economy.get(`${data.id}.hourlyIncome`)
+		await economy.add(`${data.id}.balance`,hourlyIncome)
+		await economy.add(`${data.id}.soldValue`,hourlyIncome/10)
+	  }
+}
+
 client.on('ready', (client) => {
   if (client.config.app.global) client.application.commands.set(CommandsArray)
   else client.guilds.cache.get(client.config.app.guild).commands.set(CommandsArray)
+  setInterval(giveHourlyIncomeToAllUsers, 3600000); // 1 hour = 3,600,000 milliseconds
+
 })

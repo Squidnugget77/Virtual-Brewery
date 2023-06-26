@@ -15,12 +15,9 @@ global.client = new Client({
 
 global.economy = new QuickDB();
 
-
-
 client.config = require('./config');
 
 require('./src/loader');
 require('./src/events');
-
 console.log(client.channels.cache.size);
 client.login(client.config.app.token);
