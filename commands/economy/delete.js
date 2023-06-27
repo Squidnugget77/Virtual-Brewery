@@ -14,6 +14,8 @@ module.exports = {
 	],
 	async execute({inter}) {
 		var confirmation = inter.options.getString('confirmation').toLowerCase()
+		const user_id = inter.member.id;
+
 		if (await economy.get(user_id) == null) {
 			try {
 				const embed = new Discord.EmbedBuilder()

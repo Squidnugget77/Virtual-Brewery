@@ -40,11 +40,10 @@ module.exports = {
 		else {
 			var money = 5000
 			var beverages = Math.floor(money/10)
-			console.log(beverages)
 			await economy.add(`${user_id}.balance`, money);
 			const embed = new Discord.EmbedBuilder()
 			.setColor('Green')
-			.addFields([ { name: `You have worked a shift at the brewery!`, value: `You earned **$${money.toLocaleString("en-US")}** from selling 🍺 ${(money/10).toLocaleString("en-US")} beverages!` } ])
+			.addFields([ { name: `⏳ You have worked a shift at the brewery!`, value: `You earned **$${money.toLocaleString("en-US")}** from selling 🍺 ${(money/10).toLocaleString("en-US")} beverages!` } ])
 			.setTimestamp()
 			.setFooter({ text: 'Virtual Brewery', iconURL: inter.member.avatarURL({ dynamic: true })});
 			inter.reply({ embeds: [embed]})

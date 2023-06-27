@@ -23,9 +23,17 @@ module.exports = {
 		else {
 			try {
 				var name = await economy.get(`${user_id}.name`)
+				var level = await economy.get(`${user_id}.level`)
 				var balance = await economy.get(`${user_id}.balance`)
 				var hourlyIncome = await economy.get(`${user_id}.hourlyIncome`)
 				var beveragesSold = await economy.get(`${user_id}.soldValue`)
+
+				if (level < 1) {
+					var textLevel = "breweries"
+				}
+				else {
+					var textLevel = "brewery"
+				}
 				const embed = new Discord.EmbedBuilder()
 					.setColor('#E67F1A')
 					.addFields(
@@ -35,7 +43,7 @@ module.exports = {
 						{ name: `Beverages Sold`, value: `🍻 ${beveragesSold.toLocaleString("en-US")}`}
 						)
 					.setTimestamp()
-					.setFooter({ text: 'Virtual Brewery', iconURL: inter.member.avatarURL({ dynamic: true })});
+					.setFooter({ text: `You own ${level} ${textLevel}`, iconURL: inter.member.avatarURL({ dynamic: true })});
 
 				inter.reply({ embeds: [embed]})
 			}
